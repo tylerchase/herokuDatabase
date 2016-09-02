@@ -1,7 +1,5 @@
 -- STEPS TO ADD A DATABASE TO HEROKU
 
-
-
 > mkdir herokuDB
 > cd herokuDB
 
@@ -15,3 +13,8 @@
 > git commit -m "first commit"
 > git remote add origin "blah blah blah"
 > git push origin master
+
+> heroku create [name of application]
+> npm install knex --save
+> npm install pg -S
+> knex init
