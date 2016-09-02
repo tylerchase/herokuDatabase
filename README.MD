@@ -18,3 +18,42 @@
 > npm install knex --save
 > npm install pg -S
 > knex init
+
+> git add .
+> git commit -m "added knexfile.js and package.json"
+> git push
+
+> createdb [name of database]
+> atom .
+
+- Change client and connection in the knexfile.js
+      development: {
+        client: 'postgres',
+        connection: {
+          database: name of database created on line 26 in quotes
+        }
+      },
+
+- Remove the staging object from the knexfile.js
+
+> knex migrate:make [name of table]
+
+- Now from the migrations folder find the migration file that you just made
+- Add the table info
+    exports.up = function(knex, Promise) {
+      return knex.schema.createTable('[name of table]', function(table){
+        table.increments();
+        table.string('First Name')
+        table.string('Last Name')
+        table.integer('Attendance Number')
+        table.string('Github Account')
+      })
+    };
+
+    exports.down = function(knex, Promise) {
+      return knex.schema.dropTable('[name of table]')
+    };
+
+- Check to see if the table is there
+> psql [name of database]
+> =# TABLE [name of table];
