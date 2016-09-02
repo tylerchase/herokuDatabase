@@ -2,6 +2,7 @@
 
 > mkdir herokuDB
 > cd herokuDB
+> touch .env
 
 > express --hbs --git // installs handlebars and adds a .gitignore
 > npm install
@@ -25,6 +26,8 @@
 
 > createdb [name of database]
 > atom .
+
+- add .env in the .gitignore file
 
 - Change client and connection in the knexfile.js
       development: {
@@ -56,4 +59,39 @@
 
 - Check to see if the table is there
 > psql [name of database]
-> =# TABLE [name of table];
+ =# TABLE [name of table];
+
+- Get out of psql
+> git add .
+> git commit -m "first migration"
+
+- Add the data to your table
+> knex seed:make [name of data]
+
+- Go to the seed folder and click on the file that you just created
+- Change all of the 'table_name'
+- Insert seed data in the object
+
+> knex seed:run
+> psql [name of database]
+ =# TABLE [name of table]
+
+- create a database on heroku
+- heroku docs (https://devcenter.heroku.com/articles/getting-started-with-nodejs#provision-a-database)
+
+> heroku addons:create heroku-postgresql:hobby-dev
+> heroku config
+
+- Copy the entire DATABASE_URL location
+- Paste it into the .env file
+- Change the colon after DATABASE_URL to an equal sign
+- At the end of the address add "?ssl=true"
+example : DATABASE_URL = postgres://blahblahblah:lfQwRfNea3qGrwOxJTYYtdWGkd@ec2-54-235-183-28.compute-1.amazonaws.com:5432/d8pr5444mns72?ssl=true
+- make sure it is all on one line (sometimes it adds spaces in the address)
+
+- Go to the knexfile.js file
+- set production.connection: process.env.DATABASE_URL,
+
+> npm install dotenv --save
+
+- Add require('dotenv').config() to the top of the knexfile.js file 
